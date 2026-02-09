@@ -1,0 +1,71 @@
+version: "3.8"
+
+# Judge0 CE (Community Edition) - Free & Open Source
+# Documentation: https://github.com/judge0/judge0
+
+x-logging: &default-logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "100m"
+      max-file: "5"
+
+services:
+  # Judge0 Server
+  server:
+    image: judge0/judge0:1.13.1
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+    ports:
+      - "2358:2358"
+    privileged: true
+    <<: *default-logging
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  # Judge0 Workers (handles code execution)
+  workers:
+    image: judge0/judge0:1.13.1
+    command: ["./scripts/workers"]
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+    privileged: true
+    <<: *default-logging
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  # PostgreSQL Database for Judge0
+  db:
+    image: postgres:16.2
+    env_file: judge0.conf
+    volumes:
+      - judge0-postgres-data:/var/lib/postgresql/data/
+    <<: *default-logging
+    restart: always
+
+  # Redis for Judge0 queue management
+  redis:
+    image: redis:7.2.4
+    command:
+      [
+        "bash",
+        "-c",
+        'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+      ]
+    env_file: judge0.conf
+    volumes:
+      - judge0-redis-data:/data
+    <<: *default-logging
+    restart: always
+
+volumes:
+  judge0-postgres-data:
+  judge0-redis-data:
+
+networks:
+  default:
+    name: judge0-network
