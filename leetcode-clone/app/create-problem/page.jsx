@@ -9,7 +9,7 @@ import React from 'react'
 const CreateProblemPage = async() => {
     const user = await currentUser();
   return (
-    <section className='flex flex-col items-center justify-center container mx-4 my-4'>
+    <section className='flex flex-col items-center justify-center mx-4 my-4'>
         <div className='flex flex-row justify-between items-center w-full'>
             <Link href={"/"}>
             <Button variant={"outline"} size={"icon"}>
