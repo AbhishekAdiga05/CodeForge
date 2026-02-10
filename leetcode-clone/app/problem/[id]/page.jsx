@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { getJudge0LanguageId } from '@/lib/judge0';
 import { toast } from 'sonner';
-// import { SubmissionHistory } from '@/modules/problems/components/submission-history';
+import { SubmissionHistory } from '@/modules/problems/components/submission-history';
 import Link from 'next/link';
 
 
@@ -220,7 +220,7 @@ const ProblemIdPage = ({ params }) => {
                   </TabsList>
                   <TabsContent value="submissions" className="p-6">
                     <div className="text-center py-8 text-muted-foreground">
-                      {/* <SubmissionHistory submissions={submissionHistory} /> */}
+                      {<SubmissionHistory submissions={submissionHistory} /> || 'No submissions yet. Try solving the problem!'}
                     </div>
                   </TabsContent>
                   <TabsContent value="editorial" className="p-6">
