@@ -71,7 +71,7 @@ export const currentUserRole = async () => {
   }
 };
 
-export const getCurrentUser = async () => {
+export const getCurrentUserData = async () => {
   try {
     const user = await currentUser();
 
@@ -85,11 +85,52 @@ export const getCurrentUser = async () => {
       where: {
         clerkId: id,
       },
+      include: {
+        solvedProblems: {
+          include: {
+            problem: true,
+          },
+        },
+        playlists: {
+          include: {
+            problems: {
+              include: {
+                problem: true,
+              },
+            },
+          },
+        },
+        submissions: {
+          include: {
+            problem: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
     });
 
-    return dbUser;
+    if (!dbUser) {
+      return {
+        solvedProblems: [],
+        playlists: [],
+        submissions: [],
+      };
+    }
+
+    return {
+      ...dbUser,
+      solvedProblems: dbUser.solvedProblems || [],
+      playlists: dbUser.playlists || [],
+      submissions: dbUser.submissions || [],
+    };
   } catch (error) {
     console.error("❌ Error fetching current user:", error);
-    return null;
+    return {
+      solvedProblems: [],
+      playlists: [],
+      submissions: [],
+    };
   }
 };

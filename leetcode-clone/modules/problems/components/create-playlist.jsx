@@ -1,76 +1,103 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import * as z from "zod";
+
+const playlistSchema = z.object({
+  name: z.string().min(1, "Name is required").max(50, "Name is too long"),
+  description: z.string().max(500, "Description is too long").optional(),
+});
 
 const CreatePlaylistModal = ({ isOpen, onClose, onSubmit }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!name.trim()) return;
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(playlistSchema),
+  });
+
+  const handleFormSubmit = async (data) => {
     try {
-      await onSubmit({ name, description });
-      setName("");
-      setDescription("");
+      setIsLoading(true);
+      await onSubmit(data);
+      reset();
+      onClose();
+    } catch (error) {
+      console.error("Error creating playlist:", error);
+      toast.error("Failed to create playlist");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleClose = () => {
-    setName("");
-    setDescription("");
-    onClose();
-  };
-
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Create New Playlist</DialogTitle>
+          <DialogDescription>
+            Create a new playlist to organize your favorite problems
+          </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-2">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+          <div>
             <Label htmlFor="name">Playlist Name</Label>
             <Input
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              {...register("name")}
               placeholder="Enter playlist name"
+              className="mt-1"
             />
+            {errors.name && (
+              <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+            )}
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="description">Description (optional)</Label>
+          <div>
+            <Label htmlFor="description">Description (Optional)</Label>
             <Textarea
               id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              {...register("description")}
               placeholder="Enter playlist description"
-              rows={3}
+              className="mt-1"
             />
+            {errors.description && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.description.message}
+              </p>
+            )}
           </div>
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} disabled={!name.trim() || isLoading}>
-            {isLoading ? "Creating..." : "Create Playlist"}
-          </Button>
-        </DialogFooter>
+          <div className="flex justify-end gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onClose}
+              disabled={isLoading}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Creating..." : "Create Playlist"}
+            </Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

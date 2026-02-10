@@ -40,7 +40,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 
-const ProblemsTable = ({ problems, user }) => {
+const ProblemsTable = ({ problems = [], user }) => {
   const [search, setSearch] = useState("");
   const [difficulty, setDifficulty] = useState("ALL");
   const [selectedTag, setSelectedTag] = useState("ALL");
@@ -65,13 +65,13 @@ const ProblemsTable = ({ problems, user }) => {
   const filteredProblems = useMemo(() => {
     return (problems || [])
       .filter((problem) =>
-        problem.title.toLowerCase().includes(search.toLowerCase())
+        problem.title.toLowerCase().includes(search.toLowerCase()),
       )
       .filter((problem) =>
-        difficulty === "ALL" ? true : problem.difficulty === difficulty
+        difficulty === "ALL" ? true : problem.difficulty === difficulty,
       )
       .filter((problem) =>
-        selectedTag === "ALL" ? true : problem.tags?.includes(selectedTag)
+        selectedTag === "ALL" ? true : problem.tags?.includes(selectedTag),
       );
   }, [problems, search, difficulty, selectedTag]);
 
@@ -81,7 +81,7 @@ const ProblemsTable = ({ problems, user }) => {
   const paginatedProblems = useMemo(() => {
     return filteredProblems.slice(
       (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
+      currentPage * itemsPerPage,
     );
   }, [filteredProblems, currentPage]);
 
@@ -105,13 +105,17 @@ const ProblemsTable = ({ problems, user }) => {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result = await response.json();
 
       if (result.success) {
         setIsCreateModalOpen(false);
         toast.success("Playlist created successfully");
       } else {
-        throw new Error(result.error);
+        throw new Error(result.error || "Failed to create playlist");
       }
     } catch (error) {
       console.error("Error creating playlist:", error);
@@ -126,6 +130,10 @@ const ProblemsTable = ({ problems, user }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ problemId, playlistId }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const result = await response.json();
 
@@ -254,7 +262,7 @@ const ProblemsTable = ({ problems, user }) => {
             <TableBody>
               {paginatedProblems.length > 0 ? (
                 paginatedProblems.map((problem) => {
-                  const isSolved = problem.solvedBy.length > 0;
+                  const isSolved = (problem.solvedBy?.length ?? 0) > 0;
                   return (
                     <TableRow key={problem.id}>
                       <TableCell>
@@ -288,7 +296,7 @@ const ProblemsTable = ({ problems, user }) => {
                       <TableCell>
                         <Badge
                           className={`${getDifficultyColor(
-                            problem.difficulty
+                            problem.difficulty,
                           )} border-0 font-medium`}
                         >
                           {problem.difficulty}
@@ -391,6 +399,7 @@ const ProblemsTable = ({ problems, user }) => {
         onClose={() => setIsAddToPlaylistModalOpen(false)}
         onSubmit={handleAddToPlaylist}
         problemId={selectedProblemId}
+        onOpenCreatePlaylist={() => setIsCreateModalOpen(true)}
       />
     </div>
   );

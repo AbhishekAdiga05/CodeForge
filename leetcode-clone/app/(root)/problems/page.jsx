@@ -1,6 +1,6 @@
 import React from "react";
 import { getAllProblems } from "@/modules/problems/actions";
-import ProblemsTable from "@/modules/problems/components/ProblemsTable";
+import ProblemsTable from "@/modules/problems/components/problem-table";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 
@@ -13,7 +13,7 @@ const ProblemPage = async () => {
       select: { id: true, role: true },
     });
   }
-  const { data: problems, error } = await getAllProblems();
+  const { data: problems = [], error } = await getAllProblems();
   console.log(problems);
   if (error) {
     return (
@@ -26,7 +26,7 @@ const ProblemPage = async () => {
   return (
     <div>
       <div className="container mx-auto py-32">
-        <ProblemsTable problems={problems} user={dbUser} />
+        <ProblemsTable problems={problems || []} user={dbUser} />
       </div>
     </div>
   );
