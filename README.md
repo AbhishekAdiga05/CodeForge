@@ -154,7 +154,7 @@ Whether you're preparing for technical interviews or looking to sharpen your alg
 
 ```bash
 git clone <repository-url>
-cd codeforge
+cd <repository-name>
 ```
 
 ### Step 2: Install Dependencies
@@ -248,7 +248,6 @@ The application will be available at `http://localhost:3000`.
 ## Folder Structure
 
 ```
-codeforge/
 ├── app/                          # Next.js App Router
 │   ├── layout.js                 # Root layout with providers
 │   ├── globals.css               # Global styles & Tailwind

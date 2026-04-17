@@ -91,13 +91,13 @@ export default async function Home() {
       <section className="min-h-screen flex flex-col justify-center items-center px-4 pt-16">
         <div className="max-w-6xl mx-auto text-center">
           {/* Badge */}
-          <Badge
+          {/* <Badge
             variant="secondary"
             className="mb-8 bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900"
           >
             <Star className="w-4 h-4 mr-2" />
             Join 10,000+ developers already coding
-          </Badge>
+          </Badge> */}
 
           {/* Main Heading */}
           <h1 className="text-2xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white leading-tight mb-8">
