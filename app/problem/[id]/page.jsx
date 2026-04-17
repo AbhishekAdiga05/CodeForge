@@ -83,7 +83,9 @@ const ProblemIdPage = ({ params }) => {
 
   useEffect(() => {
     if (problem && problem.codeSnippets[selectedLanguage]) {
-      setCode(problem.codeSnippets[selectedLanguage]);
+      Promise.resolve().then(() => {
+        setCode(problem.codeSnippets[selectedLanguage]);
+      })
     }
   }, [selectedLanguage, problem]);
 
