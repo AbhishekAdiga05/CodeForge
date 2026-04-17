@@ -55,7 +55,6 @@ const ProblemIdPage = ({ params }) => {
         console.log(problemData);
         if (problemData.success) {
           setProblem(problemData.data);
-          setCode(problemData.data.codeSnippets[selectedLanguage] || '');
         }
       } catch (error) {
         console.error('Error fetching problem:', error);

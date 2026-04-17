@@ -102,7 +102,7 @@ export default function AboutPage() {
           </Badge>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent">
-            About LeetCode Clone
+            About CodeForge
           </h1>
 
           <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -344,7 +344,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-zinc-500 dark:text-zinc-500">
             Built with Next.js, Prisma, and ❤️ | © {new Date().getFullYear()}{" "}
-            LeetCode Clone
+            CodeForge
           </p>
         </div>
       </section>
