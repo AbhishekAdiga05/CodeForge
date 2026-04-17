@@ -3,7 +3,7 @@ import {
   pollBatchResults,
   submitBatch,
 } from "@/lib/judge0";
-import { currentUserRole, getCurrentUser } from "@/modules/auth/actions";
+import { currentUserRole, getCurrentUserData } from "@/modules/auth/actions";
 
 import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -12,7 +12,7 @@ import { db } from "@/lib/db";
 export async function POST(request) {
   try {
     const userRole = await currentUserRole();
-    const user = await getCurrentUser();
+    const user = await getCurrentUserData();
 
     if (userRole !== UserRole.ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

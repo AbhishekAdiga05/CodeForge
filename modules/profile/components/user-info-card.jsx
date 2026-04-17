@@ -26,7 +26,7 @@ const UserInfoCard = ({ userData }) => {
               alt={`${userData.firstName} ${userData.lastName}`}
             />
             <AvatarFallback className="text-2xl font-bold">
-              {userData.firstName[0]}{userData.lastName[0]}
+              {userData?.firstName?.[0] || 'U'}{userData?.lastName?.[0] || ''}
             </AvatarFallback>
           </Avatar>
           <div className="absolute -bottom-2 -right-2 bg-primary rounded-full p-2">
