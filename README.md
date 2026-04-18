@@ -42,25 +42,24 @@ CodeForge was created to bring those pieces together in one polished developer e
 
 ## Live Demo
 
-- **Live App:** Coming soon
-- **Demo Video:** Coming soon
+- **Live App:** https://codeforge-neon.vercel.app/
 
 ## Screenshots
 
-Add screenshots here once available:
+### Home Page / Landing Experience
+![Home Experience](./public/screenshots/home.png)
 
-- Home page / landing experience
-- Problems dashboard
-- Problem solving workspace
-- Create problem page
-- Profile analytics page
+### Problems Dashboard
+![Problems Dashboard](./public/screenshots/problems.png)
 
-Example:
+### Problem Solving Workspace
+![Problem Solving Workspace](./public/screenshots/workspace.png)
 
-```md
-![Home](./public/screenshots/home.png)
-![Problem Workspace](./public/screenshots/problem-workspace.png)
-```
+### Create Problem Page
+![Create Problem Page](./public/screenshots/create-problem.png)
+
+### Profile Analytics Page
+![Profile Analytics Page](./public/screenshots/profile.png)
 
 ## Core Features
 
@@ -257,14 +256,6 @@ Building CodeForge involved several practical engineering challenges:
 
 This project helped strengthen skills in full-stack architecture, API integration, data modeling, and building developer-facing products with real-world complexity.
 
-## Future Improvements
-
-- add automated tests for API routes and critical user flows
-- support more programming languages
-- add contest mode and timed assessments
-- improve analytics with streaks, acceptance rate, and topic insights
-- add richer editorial pages and discussion threads
-- support saved drafts and collaborative problem authoring
 
 ## License
 
