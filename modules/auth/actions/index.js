@@ -49,9 +49,7 @@ export const currentUserRole = async () => {
   try {
     const user = await currentUser();
 
-    if (!user) {
-      return { success: false, error: "No authenticated user found" };
-    }
+    if (!user) return null;
 
     const { id } = user;
 
@@ -64,10 +62,10 @@ export const currentUserRole = async () => {
       },
     });
 
-    return userRole.role;
+    return userRole?.role ?? null;
   } catch (error) {
     console.error("❌ Error fetching user role:", error);
-    return { success: false, error: "Failed to fetch user role" };
+    return null;
   }
 };
 

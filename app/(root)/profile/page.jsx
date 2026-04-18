@@ -9,13 +9,15 @@ import { redirect } from "next/navigation";
 
 const ProfilePage = async () => {
   const profileData = await getCurrentUserData();
+  console.log("[DEBUG] Rendering ProfilePage. Data received:", !!profileData);
 
   if (!profileData) {
+    console.log("[DEBUG] Profile data missing, redirecting to sign-in");
     redirect("/sign-in?redirect_url=/profile");
   }
 
   return (
-    <div className="min-h-screen  py-32">
+    <div className="min-h-screen py-32" id="codeforge-profile-page-container">
       <div className="container mx-auto px-4 max-w-7xl">
         <UserInfoCard userData={profileData} />
 

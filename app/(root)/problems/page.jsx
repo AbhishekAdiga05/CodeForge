@@ -14,7 +14,6 @@ const ProblemPage = async () => {
     });
   }
   const { data: problems = [], error } = await getAllProblems();
-  console.log(problems);
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">

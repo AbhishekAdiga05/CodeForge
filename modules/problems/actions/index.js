@@ -71,6 +71,8 @@ export const getProblemById = async (id) => {
 export const getAllProblemSolvedByUser = async () => {
   try {
     const user = await currentUser();
+    if (!user) return { success: false, error: "Unauthorized" };
+
     const userId = await db.user.findUnique({
       where: {
         clerkId: user.id,
@@ -222,9 +224,17 @@ export const executeCode = async (
 ) => {
   const user = await currentUser();
 
+  if (!user) {
+    return { success: false, error: "You must be signed in to run code." };
+  }
+
   const dbUser = await db.user.findUnique({
     where: { clerkId: user.id },
   });
+
+  if (!dbUser) {
+    return { success: false, error: "User account not found in database." };
+  }
 
   if (
     !Array.isArray(stdin) ||
@@ -329,6 +339,8 @@ export const executeCode = async (
 
 export const getAllSubmissionByCurrentUserForProblem = async (problemId) => {
   const user = await currentUser();
+  if (!user) return { success: false, data: [], error: "Unauthorized" };
+
   const userId = await db.user.findUnique({
     where: {
       clerkId: user.id,

@@ -14,7 +14,7 @@ import {
   CheckCircle2,
   Download,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -483,7 +483,7 @@ public class Main {
   },
 };
 
-const CodeEditor = ({ value, onChange, language = "javascript" }) => {
+const CodeEditor = memo(({ value, onChange, language = "javascript" }) => {
   // Map language names to Monaco Editor language IDs
   const languageMap = {
     javascript: "javascript",
@@ -517,7 +517,7 @@ const CodeEditor = ({ value, onChange, language = "javascript" }) => {
       </div>
     </div>
   );
-};
+});
 
 const CreateProblemForm = () => {
   const router = useRouter();

@@ -23,25 +23,21 @@ const Navbar = ({ userRole }) => {
             </span>
           </Link>
 
-          <div className="flex flex-row items-center justify-center gap-x-4">
-            <Link
-              href="/problems"
-              className="text-sm font-medium text-zinc-600 dark:text-zinc-400  hover:text-amber-600 cursor-pointer dark:hover:text-amber-400"
-            >
-              Problems
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-zinc-600 dark:text-zinc-400  hover:text-amber-600 cursor-pointer dark:hover:text-amber-400"
-            >
-              About
-            </Link>
-            <Link
-              href="/profile"
-              className="text-sm font-medium text-zinc-600 dark:text-zinc-400  hover:text-amber-600 cursor-pointer dark:hover:text-amber-400"
-            >
-              Profile
-            </Link>
+          <div className="flex flex-row items-center justify-center gap-x-6">
+            {[
+              { label: "Problems", href: "/problems" },
+              { label: "About", href: "/about" },
+              { label: "Profile", href: "/profile" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-amber-600 transition-colors"
+                id={`nav-link-${link.label.toLowerCase()}`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           <div className="flex items-center gap-4">

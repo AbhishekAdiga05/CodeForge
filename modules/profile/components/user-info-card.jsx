@@ -36,17 +36,17 @@ const UserInfoCard = ({ userData }) => {
         
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-3xl font-bold mb-2">
-            {userData.firstName} {userData.lastName}
+            {userData?.firstName || 'User'} {userData?.lastName || ''}
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-4">
             <div className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground">
               <Mail className="w-4 h-4" />
-              <span className="text-sm">{userData.email}</span>
+              <span className="text-sm">{userData?.email || 'No email provided'}</span>
             </div>
             <div className="flex items-center justify-center md:justify-start gap-2">
-              <Badge variant={userData.role === 'ADMIN' ? 'destructive' : 'secondary'}>
-                {userData.role}
+              <Badge variant={userData?.role === 'ADMIN' ? 'destructive' : 'secondary'}>
+                {userData?.role || 'USER'}
               </Badge>
             </div>
           </div>
@@ -54,11 +54,11 @@ const UserInfoCard = ({ userData }) => {
           <div className="flex flex-col sm:flex-row gap-4 text-sm text-muted-foreground">
             <div className="flex items-center justify-center md:justify-start gap-2">
               <Calendar className="w-4 h-4" />
-              <span>Joined {formatDate(userData.createdAt)}</span>
+              <span>Joined {userData?.createdAt ? formatDate(userData.createdAt) : 'Recently'}</span>
             </div>
             <div className="flex items-center justify-center md:justify-start gap-2">
               <User className="w-4 h-4" />
-              <span>Last active {formatDate(userData.updatedAt)}</span>
+              <span>Last active {userData?.updatedAt ? formatDate(userData.updatedAt) : 'Just now'}</span>
             </div>
           </div>
         </div>

@@ -1,7 +1,5 @@
 'use client';
 
-export const dynamic = "force-dynamic";
-
 import { useTheme } from 'next-themes';
 import Editor from '@monaco-editor/react';
 import { executeCode, getAllSubmissionByCurrentUserForProblem, getProblemById } from '@/modules/problems/actions';
@@ -90,7 +88,7 @@ const ProblemIdPage = ({ params }) => {
         toast.success("Code executed successfully");
       }
     } catch (error) {
-      console.log("Error executing code", error);
+      console.error("Error executing code", error);
       toast.error("Error executing code");
     }
     finally {
