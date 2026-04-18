@@ -143,31 +143,6 @@ CodeForge/
 `-- proxy.js                # Clerk route protection
 ```
 
-## Key Implementation Highlights
-
-### Judge0 Execution Flow
-
-Code execution is designed to handle realistic submission workflows rather than just single input/output calls.
-
-- test cases are converted into batched Judge0 submissions
-- execution is polled until all jobs are completed
-- results are matched back to expected outputs
-- admin reference solutions are validated before a problem is stored
-
-### Database Access Strategy
-
-The Prisma client is initialized lazily in `lib/db.js`, which helps reduce unnecessary startup work and fits well with serverless deployment patterns.
-
-### Full-Stack Product Thinking
-
-This project is not just a code runner. It models real product concerns:
-
-- role-based access control
-- persistent user state
-- protected admin workflows
-- dashboard visibility into user activity
-- structured content management for problem authoring
-
 ## Local Setup
 
 ### Prerequisites
@@ -228,8 +203,6 @@ Open `http://localhost:3000`.
 
 ## Deployment
 
-CodeForge is ready to deploy on platforms like **Vercel**.
-
 ### Recommended Production Setup
 
 - **Frontend / App Hosting:** Vercel
@@ -244,17 +217,6 @@ CodeForge is ready to deploy on platforms like **Vercel**.
 - configure Clerk redirect URLs for the deployed domain
 - ensure the Judge0 endpoint is reachable from the deployed app
 
-## Challenges and Learnings
-
-Building CodeForge involved several practical engineering challenges:
-
-- designing a clean execution flow for asynchronous Judge0 polling
-- modeling coding problems, submissions, solved problems, and playlists in Prisma
-- balancing product polish with backend correctness
-- protecting admin-only actions while keeping the rest of the app accessible
-- structuring the codebase into reusable domain modules instead of a flat app
-
-This project helped strengthen skills in full-stack architecture, API integration, data modeling, and building developer-facing products with real-world complexity.
 
 
 ## License
