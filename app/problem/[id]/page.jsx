@@ -48,40 +48,26 @@ const ProblemIdPage = ({ params }) => {
   const [submissionHistory , setSubmissionHistory] = useState([]);
   const [executionResponse, setExecutionResponse] = useState(null);
   const { theme } = useTheme();
+  const paramsRef = React.useRef(null);
 
-  useEffect(() => {
-    const fetchProblem = async () => {
-      try {
-        const resolvedParams = await params;
-        const problemData = await getProblemById(resolvedParams.id);
-        console.log(problemData);
+  React.useEffect(() => {
+    const init = async () => {
+      if (!paramsRef.current) {
+        paramsRef.current = await params;
+        const problemData = await getProblemById(paramsRef.current.id);
         if (problemData.success) {
           setProblem(problemData.data);
         }
-      } catch (error) {
-        console.error('Error fetching problem:', error);
-      }
-    };
-
-    fetchProblem();
-  }, [params]);
-
-  useEffect(()=>{
-    const fetchSubmissionHistory = async()=>{
-      try {
-        const resolvedParams = await params;
-        const submissionHistory = await getAllSubmissionByCurrentUserForProblem(resolvedParams.id);
-        console.log(submissionHistory);
+        
+        const submissionHistory = await getAllSubmissionByCurrentUserForProblem(paramsRef.current.id);
         if (submissionHistory.success) {
           setSubmissionHistory(submissionHistory.data);
         }
-      } catch (error) {
-        console.error('Error fetching problem:', error);
       }
-    }
-
-    fetchSubmissionHistory();
-  },[params])
+    };
+    
+    init();
+  }, []);
 
   useEffect(() => {
     if (problem && problem.codeSnippets[selectedLanguage]) {

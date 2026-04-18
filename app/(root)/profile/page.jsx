@@ -5,20 +5,13 @@ import SolvedProblems from "@/modules/profile/components/solved-problems";
 import SubmissionsHistory from "@/modules/profile/components/submission-history";
 import UserInfoCard from "@/modules/profile/components/user-info-card";
 import React from "react";
+import { redirect } from "next/navigation";
 
 const ProfilePage = async () => {
   const profileData = await getCurrentUserData();
 
-  console.log(profileData);
-
   if (!profileData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">
-          Please sign in to view your profile.
-        </p>
-      </div>
-    );
+    redirect("/sign-in?redirect_url=/profile");
   }
 
   return (
