@@ -44,6 +44,20 @@ CodeForge was created to bring those pieces together in one polished developer e
 
 - **Live App:** https://codeforge-neon.vercel.app/
 
+## Screenshots
+
+- Home page / landing experience
+- Problems dashboard
+- Problem solving workspace
+- Create problem page
+- Profile analytics page
+
+Example:
+
+![Home](./public/screenshots/home.png)
+![Problem Workspace](./public/screenshots/problem-workspace.png)
+
+
 ## Core Features
 
 ### Problem Solving Experience
