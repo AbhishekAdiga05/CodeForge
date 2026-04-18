@@ -46,20 +46,20 @@ CodeForge was created to bring those pieces together in one polished developer e
 
 ## Screenshots
 
-Add screenshots here once available:
+### Home Page / Landing Experience
+![Home Experience](./public/screenshots/home.png)
 
-- Home page / landing experience
-- Problems dashboard
-- Problem solving workspace
-- Create problem page
-- Profile analytics page
+### Problems Dashboard
+![Problems Dashboard](./public/screenshots/problems.png)
 
-Example:
+### Problem Solving Workspace
+![Problem Solving Workspace](./public/screenshots/workspace.png)
 
-```md
-![Home](./public/screenshots/home.png)
-![Problem Workspace](./public/screenshots/problem-workspace.png)
-```
+### Create Problem Page
+![Create Problem Page](./public/screenshots/create-problem.png)
+
+### Profile Analytics Page
+![Profile Analytics Page](./public/screenshots/profile.png)
 
 ## Core Features
 
