@@ -519,6 +519,8 @@ const CodeEditor = memo(({ value, onChange, language = "javascript" }) => {
   );
 });
 
+CodeEditor.displayName = "CodeEditor";
+
 const CreateProblemForm = () => {
   const router = useRouter();
   const [sampleType, setSampleType] = useState("DP");

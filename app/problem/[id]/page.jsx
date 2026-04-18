@@ -65,7 +65,7 @@ const ProblemIdPage = ({ params }) => {
     };
     
     init();
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     if (problem && problem.codeSnippets[selectedLanguage]) {
